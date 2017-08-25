@@ -7,24 +7,29 @@
   <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      var baseUrl = "http://pokeapi.co.";
+      var api = "api/v2/pokemon/";
 
 
-      for (var i = 1; i < 151; i++) {
+      for (var i = 1; i < 5; i++) {
         var pokeImage = '<img src ="http://pokeapi.co/media/img/'
         pokeImage += i + '.png">'
-
-        console.log(i);
         $('.poke-container').append(pokeImage);
-        console.log(pokeImage);
-        // $.get("http://pokeapi.co/api/v2/pokemon/" + i + "/", function(response) {
-        //   console.log(response);
-        //
-        //   // var parsed = JSON.parse(response)
-        //   //
-        //
-        //   $('.poke-container').append(pokemon);
-        // });
+        // console.log(pokeImage);
 
+        // $.getJSON(baseUrl + api + i, function(response) {
+        //   console.log(response);
+        //   //
+        //   //   // var parsed = JSON.parse(response)
+        //   //   //
+        //   //
+        //   //   $('.poke-container').append(pokemon);
+        // }); http://pokeapi.co/api/v2/pokemon/4/
+        $.getJSON('http://pokeapi.co/api/v2/pokemon/' + i + '/', function(res) {
+          var name = res['name'];
+          console.log(res);
+
+        })
 
       }
 
@@ -34,6 +39,13 @@
 <style>
   img {
     width: 10%;
+  }
+
+  body {
+    background-image: url('https://media1.giphy.com/media/8WzI3BftWU5Xy/200_s.gif');
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    text-align: center;
   }
 </style>
 
