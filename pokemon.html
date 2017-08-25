@@ -2,8 +2,11 @@
 <html>
 
 <head>
+
   <meta charset="utf-8">
-  <title>Pokemon</title>
+
+  <title>Pokémon</title>
+  <link rel="icon" type="image/png" href="http://www.pokemongofreehack.net/img/favicon.png" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 
@@ -11,11 +14,11 @@
   <script type="text/javascript">
   $(document).ready(function() {
 
-    for (var i = 1; i < 811; i++){
+    for (var i = 1; i < 718; i++){
 
       // Display each image
       // Store each character's id in the "data-poke-id" attribute
-      var pokeImage = '<img class="poke-image" data-poke-id="' + i + '" src ="http://pokeapi.co/media/img/' + i + '.png" width="60">';
+      var pokeImage = '<img class="poke-image" data-poke-id="' + i + '" src ="http://pokeapi.co/media/img/' + i + '.png" width="60" alt="Unloaded ' + i + '">';
 
       // Add each image to the container
       $('.poke-container').append(pokeImage);
@@ -29,6 +32,11 @@
 
     // Reference the clicked image
     var img = $(this);
+
+    // Set all images to the deselected state
+    $('img.poke-image').removeClass('selected');
+    // Set the clicked image to selected
+    img.addClass('selected');
 
     // Get the character's id from the "data-poke-id" attribute
     var id = img.data('poke-id');
@@ -53,7 +61,9 @@
         // If successful
         console.log(data);
 
-        var html = '<strong>' + data.name.toUpperCase() + '</strong>';
+        var html = '<img src ="http://pokeapi.co/media/img/' + id + '.png" width="60">';
+
+        html += '<strong>' + data.name.toUpperCase() + '</strong>';
 
         html += '<ul>';
         $.each(data.abilities,function(i,item){
@@ -65,6 +75,11 @@
         html += '</ul>';
 
         $('.individual').html(html);
+
+      },
+      always: function(){
+
+        alert(id);
 
       },
       error: function(status,error){
@@ -83,23 +98,22 @@
 </head>
 <style>
 
-body {
-  background-image: url('https://media1.giphy.com/media/8WzI3BftWU5Xy/200_s.gif');
-  background-repeat: no-repeat;
-  background-position: right top;
-}
-
 .individual {
   width: 100%;
   border: solid 1px #ccc;
   border-radius: 4px;
   height: 300px;
+  padding: 4px 8px;
 }
 
 img.poke-image {
   cursor: pointer;
+  border-radius: 4px;
 }
 img.poke-image:hover {
+  background-color: #ccc;
+}
+img.poke-image.selected {
   background-color: #ccc;
 }
 </style>
@@ -109,7 +123,7 @@ img.poke-image:hover {
   <!-- mt won't work unless you include bootstrap css -->
   <!-- html attributes use double quotes btw -->
   <!-- you had <div class='poke-container mt-3'> -->
-  <div class="container mt-3">
+  <div class="container-fluid mt-3">
 
     <div class="row">
 
