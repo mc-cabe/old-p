@@ -11,12 +11,16 @@
       var api = "api/v2/pokemon/";
 
 
-      for (var i = 1; i < 5; i++) {
+      for (var i = 1; i < 30; i++) {
         var pokeImage = '<img src ="http://pokeapi.co/media/img/'
         pokeImage += i + '.png">'
         $('.poke-container').append(pokeImage);
-        // console.log(pokeImage);
 
+
+        // console.log(pokeImage);
+        // $('img').click(function() {
+        //   $(this).prepend('<img src="http://pokeapi.co/media/img/1.png">')
+        // })
         // $.getJSON(baseUrl + api + i, function(response) {
         //   console.log(response);
         //   //
@@ -26,8 +30,19 @@
         //   //   $('.poke-container').append(pokemon);
         // }); http://pokeapi.co/api/v2/pokemon/4/
         $.getJSON('http://pokeapi.co/api/v2/pokemon/' + i + '/', function(res) {
-          var name = res['name'];
-          console.log(res);
+          // var name = res['name'];
+          var name = res.name;
+          console.log(name);
+          var abilities = res.abilities[0].ability.name;
+          console.log(abilities);
+          // $('img').append(name);
+
+          // $.getJSON('http://pokeapi.co/api/v2/ability/34/', function(ability) {
+          //   var power = ability['name' [i]]
+          //   console.log(power);
+          // })
+
+
 
         })
 
@@ -35,6 +50,7 @@
 
     });
   </script>
+
 </head>
 <style>
   img {
@@ -46,14 +62,31 @@
     background-repeat: no-repeat;
     vertical-align: middle;
     text-align: center;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .poke-container {
+    width: 70%;
+    display: inline-block;
+  }
+
+  .individual {
+    width: 25%;
+    display: inline-block;
+    border-style: solid;
+    vertical-align: middle;
+    height: 300px;
   }
 </style>
 
 <body>
-  <div class='poke-container'>
-    <img src="http://pokeapi.co/media/img/1.png">
-    <img src="http://pokeapi.co/media/img/2.png">
+  <div class='poke-container mt3'>
+
   </div>
+  <div class=' individual '>
+  </div>
+
 </body>
 
 </html>
