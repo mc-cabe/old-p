@@ -11,7 +11,7 @@
       var api = "api/v2/pokemon/";
 
 
-      for (var i = 1; i < 3; i++) {
+      for (var i = 1; i < 50; i++) {
         var pokeImage = '<img src ="http://pokeapi.co/media/img/'
         pokeImage += i + '.png">'
         $('.poke-container').append(pokeImage);
@@ -44,7 +44,7 @@
           $('img').click(function() {
             $img = $(this).clone();
             $('.individual').show().html($img);
-
+            $('.individual').append("Name: ", name).append("Ability:", abilities);
           });
 
         })
@@ -79,11 +79,16 @@
     width: 80%;
   }
 
+  .individual p {
+    text-align: middle;
+    font-size: 25em;
+  }
+
   .individual {
     width: 25%;
     display: inline-block;
     border-style: solid;
-    vertical-align: middle;
+    vertical-align: top;
     text-align: center;
 
     height: 300px;
