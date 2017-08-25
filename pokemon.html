@@ -8,21 +8,29 @@
   <script type="text/javascript">
     $(document).ready(function() {
 
+      for (var i = 1; i < 2; i++) {
+
+        $.get("http://pokeapi.co/api/v2/pokemon/4/", function(data, status) {
+
+          console.log("Data: " + data + "\nStatus: " + status);
+
+          var pokemon = '<img src ="http://pokeapi.co/media/img/"'
+          pokemon += i, '.png>';
+
+          $('poke-container').append(pokemon);
+        });
 
 
-    $.get("http://pokeapi.co/api/v2/pokemon/4/", function(res) {
+      }
 
-      $('.entry').each(function(i) {
-        $(this).append("<img src=http://pokeapi.co/media/img/'+i+'.png'+'class=pokemon'/>");
-      })
-    })
-    })
-    })
+    });
   </script>
 </head>
 
 <body>
-  <img src="http://pokeapi.co/media/img/1.png">
+  <div class='poke-container'>
+    <img src="http://pokeapi.co/media/img/1.png">
+  </div>
 </body>
 
 </html>
