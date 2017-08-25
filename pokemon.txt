@@ -1,0 +1,11 @@
+Pokemon
+pokeapi.co/media/img4.png
+
+$(document).ready(function() {
+GET function - with callback
+  $.get("http://pokeapi.co/api/v2/pokemon/4/", function(res){
+  console.log(res);
+  favoritepokemon = unicorn.name;
+  console.log("got my favorite", favoritepokemon)
+  })
+})
