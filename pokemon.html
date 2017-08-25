@@ -4,88 +4,133 @@
 <head>
   <meta charset="utf-8">
   <title>Pokemon</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
   <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      var baseUrl = "http://pokeapi.co.";
-      var api = "api/v2/pokemon/";
+  $(document).ready(function() {
 
+    for (var i = 1; i < 151; i++){
 
-      for (var i = 1; i < 3; i++) {
-        var pokeImage = '<img src ="http://pokeapi.co/media/img/'
-        pokeImage += i + '.png">'
-        $('.poke-container').append(pokeImage);
+      // Display each image
+      // Store each character's id in the "data-poke-id" attribute
+      var pokeImage = '<img class="poke-image" data-poke-id="' + i + '" src ="http://pokeapi.co/media/img/' + i + '.png" width="60">';
 
+      // Add each image to the container
+      $('.poke-container').append(pokeImage);
 
-        // console.log(pokeImage);
-        // $('img').click(function() {
-        //   $(this).prepend('<img src="http://pokeapi.co/media/img/1.png">')
-        // })
-        // $.getJSON(baseUrl + api + i, function(response) {
-        //   console.log(response);
-        //   //
-        //   //   // var parsed = JSON.parse(response)
-        //   //   //
-        //   //
-        //   //   $('.poke-container').append(pokemon);
-        // }); http://pokeapi.co/api/v2/pokemon/4/
-        $.getJSON('http://pokeapi.co/api/v2/pokemon/' + i + '/', function(res) {
-          // var name = res['name'];
-          var name = res.name;
-          // console.log(name);
-          var abilities = res.abilities[0].ability.name;
-          // console.log(abilities);
-          console.log("Name:", name, '\n Ability:', abilities);
-          // $('img').append(name);
+    }
 
-          // $.getJSON('http://pokeapi.co/api/v2/ability/34/', function(ability) {
-          //   var power = ability['name' [i]]
-          //   console.log(power);
-          // })
+  });
 
+  // Click action for each image
+  $(document).on('click','img.poke-image',function(){
 
+    // Reference the clicked image
+    var img = $(this);
 
-        })
+    // Get the character's id from the "data-poke-id" attribute
+    var id = $(this).data('poke-id');
+
+    // Reteive the character's info
+    getPokemon(id);
+
+  });
+
+  function getPokemon(id){
+
+    var path = 'http://pokeapi.co/api/v2/pokemon/' + id;
+    console.log('Getting pokemon from',path,'...');
+    $('.individual').html('Loading...');
+
+    $.ajax({
+      type: 'GET',
+      url: path,
+      contentType: 'application/json; charset=utf-8',
+      success: function(data){
+
+        // If successful
+        console.log(data);
+
+        var html = '<strong>' + data.name.toUpperCase() + '</strong>';
+
+        html += '<ul>';
+        $.each(data.abilities,function(i,item){
+
+          console.log(item);
+          html += '<li>' + item.ability.name + '</li>';
+
+        });
+        html += '</ul>';
+
+        $('.individual').html(html);
+
+      },
+      error: function(status,error){
+
+        // If an error occurs
+        console.log(status);
+        console.log(error);
+        $('.individual').html('An error occured!');
 
       }
-
     });
+
+  }
   </script>
 
 </head>
 <style>
-  img {
-    width: 10%;
-  }
 
-  body {
-    background-image: url('https://media1.giphy.com/media/8WzI3BftWU5Xy/200_s.gif');
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    text-align: center;
-    width: 100%;
-    display: inline-block;
-  }
+body {
+  background-image: url('https://media1.giphy.com/media/8WzI3BftWU5Xy/200_s.gif');
+  background-repeat: no-repeat;
+  background-position: right top;
+}
 
-  .poke-container {
-    width: 70%;
-    display: inline-block;
-  }
+.individual {
+  width: 100%;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  height: 300px;
+}
 
-  .individual {
-    width: 25%;
-    display: inline-block;
-    border-style: solid;
-    vertical-align: middle;
-    height: 300px;
-  }
+img.poke-image {
+  cursor: pointer;
+}
+img.poke-image:hover {
+  background-color: #ccc;
+}
 </style>
 
 <body>
-  <div class='poke-container mt3'>
 
-  </div>
-  <div class=' individual '>
+  <!-- mt won't work unless you include bootstrap css -->
+  <!-- html attributes use double quotes btw -->
+  <!-- you had <div class='poke-container mt-3'> -->
+  <div class="container mt-3">
+
+    <div class="row">
+
+      <div class="col-md-3">
+
+        <div class="individual">
+
+
+
+        </div>
+
+      </div>
+
+      <div class="col-md-9 poke-container">
+
+
+
+      </div>
+
+    </div>
+
   </div>
 
 </body>
